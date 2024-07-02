@@ -62,8 +62,24 @@ class LinkedList {
      * If found, it removes it from the list and returns it. 
      * If not found, it returns a null pointer.
      */
-    data_type* GetItem(int index){
-        
+    data_type* GetItem(data_type* item){
+        Node* prev = nullptr;
+        Node* curr = head;
+        while (curr!=nullptr && *(curr->data)!=*item){    //checks to see if current is valid and is the item
+            prev = curr;
+            curr = curr->next;
+        }
+        if (curr==nullptr) return nullptr;    //if item not found, return null pointer
+        if (prev==nullptr){
+            head = curr->next;
+        }
+        else{
+            prev->next = curr->next;
+        }
+        data_type* result = curr->data;
+        delete curr;
+        count--;
+        return result;
     }
     /**
      * Returns a bool indicating if the given item is in the list.
@@ -122,14 +138,24 @@ message
 };
 
 int main(){
-    
-    LinkedList<int> list;
 
+    //used to test AddItem function
+    LinkedList<int> list;
     int* item1 = new int(3);
     int* item2 = new int(1);
     int* item3 = new int(2);
     list.AddItem(item1);
     list.AddItem(item2);
     list.AddItem(item3);
+
+    //used to test GetItem function
+    int* foundItem = list.GetItem(item2);
+    if (foundItem){
+        std::cout << "Found item: " << *foundItem << std::endl;
+        delete foundItem;
+    } else{
+        std::cout << "Item not found." << std::endl;
+    }
+        
 
 }
