@@ -40,7 +40,22 @@ class LinkedList {
      * Adds the given item to the list
      */
     void AddItem(data_type* item){
-
+        Node* newNode = new Node(item);
+        if (head==nullptr || *item < *(head->data)){    //if empty list or item is lesser than head's data
+            newNode->next = head;            
+            head = newNode;
+        }
+        else{                
+            Node* prev = nullptr;
+            Node* curr = head;
+            while (curr!=nullptr && *(curr->data)<*item){    //checks to make sure node is valid and if current data is less,
+                prev = curr;                            //checks the next node
+                curr = curr->next;
+            }
+            newNode->next = curr;
+            prev->next = newNode;
+        }
+        count++;
     }
     /**
      * Searches the list for the given item. 
@@ -109,5 +124,12 @@ message
 int main(){
     
     LinkedList<int> list;
+
+    int* item1 = new int(3);
+    int* item2 = new int(1);
+    int* item3 = new int(2);
+    list.AddItem(item1);
+    list.AddItem(item2);
+    list.AddItem(item3);
 
 }
