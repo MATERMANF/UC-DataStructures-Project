@@ -40,22 +40,7 @@ class LinkedList {
      * Adds the given item to the list
      */
     void AddItem(data_type* item){
-        Node* newNode = new Node(item);
-        if (head==nullptr || *item < *(head->data)){    //if empty list or item is lesser than head's data
-            newNode->next = head;            
-            head = newNode;
-        }
-        else{                
-            Node* prev = nullptr;
-            Node* curr = head;
-            while (curr!=nullptr && *(curr->data)<*item){    //checks to make sure node is valid and if current data is less,
-                prev = curr;                            //checks the next node
-                curr = curr->next;
-            }
-            newNode->next = curr;
-            prev->next = newNode;
-        }
-        count++;
+
     }
     /**
      * Searches the list for the given item. 
@@ -137,6 +122,58 @@ message
 
 };
 
+class Student {
+    private:
+
+    std::string FirstName;
+    std::string LastName;
+    std::string MNumber;
+    float GPA;
+    std::string Birthday;   // Format: YYYY/MM/DD
+
+
+    public:
+
+    Student(std::string FirstName, std::string LastName, std::string MNum, float GPA, std::string Birthday){
+        this->FirstName = FirstName;
+        this->LastName = LastName;
+        this->MNumber = MNum;
+        this->GPA = GPA;
+        this->Birthday = Birthday;
+    }
+
+    std::string GetName(){
+        return FirstName + " " + LastName;
+    }
+
+    std::string GetMNumber(){
+        return MNumber;
+        //std::string temp = "M" + std::to_string(MNumber);
+        //return temp;
+    }
+
+    int GetAge(){
+        return 2024 - std::stoi(Birthday.substr(6));
+    }
+
+    // Overide of operators
+
+    bool operator == (Student &other){
+        return std::stoi(MNumber.substr(1)) == std::stoi(other.MNumber.substr(1));;
+    }
+
+    bool operator > (Student &other){
+        return std::stoi(MNumber.substr(1)) > std::stoi(other.MNumber.substr(1));;
+    }
+
+    bool operator < (Student &other){
+        return std::stoi(MNumber.substr(1)) < std::stoi(other.MNumber.substr(1));;
+    }
+
+    // Use when comparing M-Number: std::stoi(MNum.substr(1));
+
+};
+
 int main(){
 
     //used to test AddItem function
@@ -158,4 +195,21 @@ int main(){
     }
         
 
+    
+    Student myStudent = Student("Nathan", "Fullerton", "M14923244", 3.5, "05/24/2004");
+    Student notMyStudent = Student("Sterling", "Hofmann", "M14923294", 3.5, "05/24/2004");
+    std::cout<<myStudent.GetName()<<std::endl;
+    std::cout<<myStudent.GetMNumber()<<std::endl;
+    std::cout<<myStudent.GetAge()<<std::endl;
+
+    if(myStudent < notMyStudent){
+        std::cout<<"Pass!";
+    }
+    else{
+        std::cout<<"Fail!";
+    }
+
+    return 0;
+
 }
+
