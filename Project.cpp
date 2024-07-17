@@ -9,7 +9,6 @@ struct Node{
 
     ~Node(){
         delete next;
-        
     }
 };
 
@@ -85,6 +84,7 @@ class LinkedList {
             prev->next = curr->next;    //update item's previous "next" to the current node's "next" for deletion
         }
         data_type* result = &(curr->data);
+        curr->next = nullptr;
         delete curr;
         size--;
         return result;
