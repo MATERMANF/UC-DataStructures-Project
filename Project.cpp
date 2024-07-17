@@ -173,10 +173,28 @@ class Student {
     public:
 
     Student(std::string FirstName, std::string LastName, std::string MNum, float GPA, std::string Birthday){
+        if(Birthday[5] != '/' || Birthday[2] != '/'){
+            std::cout<<"Error: Birthday should be in the form DD/MM/YYYY.";
+            std::cerr<<"Error: Birthday should be in the form DD/MM/YYYY.";
+            std::terminate();
+        }
         this->FirstName = FirstName;
         this->LastName = LastName;
         this->MNumber = MNum;
         this->GPA = GPA;
+        this->Birthday = Birthday;
+    }
+
+    Student(std::string FirstName, std::string LastName, std::string MNum, std::string Birthday){
+        if(Birthday[5] != '/' || Birthday[2] != '/'){
+            std::cout<<"Error: Birthday should be in the form DD/MM/YYYY.";
+            std::cerr<<"Error: Birthday should be in the form DD/MM/YYYY.";
+            std::terminate();
+        }
+        this->FirstName = FirstName;
+        this->LastName = LastName;
+        this->MNumber = MNum;
+        this->GPA = 0.0f;
         this->Birthday = Birthday;
     }
 
@@ -211,6 +229,35 @@ class Student {
     // Use when comparing M-Number: std::stoi(MNum.substr(1));
 
 };
+
+int testFunct(){
+    std::cout<<"Hi";
+};
+
+
+void testMenu(){
+    bool running = true;
+    while(running){
+        std::cout<<"\n\n\nWelcome to the test program!\n\n";
+        std::cout<<"Please select an option:\n"
+        std::cout<<"[0] - Add Item to list\n"
+        std::cout<<"[1] - Get Item from list\n"
+
+        std::cin>>option;
+        switch (option){
+            case 0:
+
+                break;
+
+            case 1:
+
+                break;
+            default:
+                running = false;
+                break;
+        }
+    }
+}
 
 int main(){
 
