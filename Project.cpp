@@ -40,28 +40,6 @@ class LinkedList {
      * Adds the given item to the list
      */
     void AddItem(data_type* item){
-        Node<data_type>* newNode = new Node<data_type>;    //creates new node
-        newNode->data = *item;                            //adds new item to new node's data
-        //    !!!!This line breaks compiler: trying without pointers?
-        //if (head==nullptr || *(newNode->data) < *(head->data)){    //if no head or new data less than current head:
-        if (head==nullptr || newNode->data < head->data){ //if no head or new data less than current head:
-            newNode->next = head;                //update new node's next to previous head
-            head->prev = newNode;               //previous head's "prev" changes from nullptr to newNode
-            head = newNode;                    //update list's head to new node
-            head->prev = nullptr;            //changes the head's previous back to nullptr
-        }
-        else{                           
-            Node<data_type>* prev = nullptr;
-            Node<data_type>* curr = head;
-            //while (curr && *(curr->data) < *(newNode->data)){    //!!! breaks compiler?
-            while (curr && curr->data < newNode->data){
-                prev = curr;
-                curr = curr->next;
-            }
-            newNode->next = curr;
-            prev->next = newNode;
-        }
-        size++;
     }
     /**
      * Searches the list for the given item. 
@@ -71,7 +49,6 @@ class LinkedList {
     data_type* GetItem(data_type* item){
         Node<data_type>* prev = nullptr;
         Node<data_type>* curr = head;
-        //while (curr!=nullptr && *(curr->data)!=*item){    //breaks compiler
         while (curr!=nullptr && curr->data!=*item){    //checks to see if current is valid and is the item
             prev = curr;
             curr = curr->next;
@@ -83,7 +60,7 @@ class LinkedList {
         else{
             prev->next = curr->next;    //update item's previous "next" to the current node's "next" for deletion
         }
-        data_type* result = curr->data;    //!!!error: invalid conversion from ‘int’ to ‘int*’ [-fpermissive]
+        data_type* result = &(curr->data);
         delete curr;
         size--;
         return result;
@@ -91,14 +68,20 @@ class LinkedList {
     /**
      * Returns a bool indicating if the given item is in the list.
      */
-    bool IsInList(data_type* item){
-
+    bool IsInList(data_type* item){     // Same code as GetItem, just without removing the item
+        Node<data_type>* curr = head;
+        while (curr!=nullptr && curr->data != *item){    //checks to see if current is valid and is the item
+            std::cout<<"\nChecking: " << *item << " - " << curr->data;
+            curr = curr->next;
+        }
+        if (curr==nullptr) return false;    //if item not found: return null pointer
+        else return true;
     }
     /**
      * Returns a bool indicating if the list is empty
      */
     bool IsEmpty(){
-        return size==0;
+        return size == 0;
     }
     /**
      * Returns the size of the list
@@ -125,7 +108,16 @@ past the end of the list, this will throw an error or display an error
 message
      */
     data_type* SeeAt(int pos){
-
+        if (pos > size-1){
+            std::cout<<"Error: Index out of range.";
+            return nullptr;
+        }
+        Node<data_type>* curr = head;
+        while(pos > 0) {
+            curr = curr->next;
+            pos--;
+        }
+        return curr->data;
     }
     /**
      * Resets the position that SeeNext uses
@@ -139,7 +131,7 @@ message
      */
     ~LinkedList(){
         delete head;
-        delete this;
+        //delete this;
     }
 
 };
@@ -206,6 +198,8 @@ int main(){
     list.AddItem(item1);
     list.AddItem(item2);
     list.AddItem(item3);
+
+    std::cout<<"Checking if list contains 2: "<<list.IsInList(item2)<<std::endl;
 
     //used to test GetItem function
     int* foundItem = list.GetItem(item2);
