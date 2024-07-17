@@ -9,7 +9,7 @@ struct Node{
 
     ~Node(){
         delete next;
-        delete this;
+        
     }
 };
 
@@ -46,9 +46,11 @@ class LinkedList {
         //if (head==nullptr || *(newNode->data) < *(head->data)){    //if no head or new data less than current head:
         if (head==nullptr || newNode->data < head->data){ //if no head or new data less than current head:
             newNode->next = head;                //update new node's next to previous head
-            head->prev = newNode;               //previous head's "prev" changes from nullptr to newNode
+            if(head != nullptr){
+                head->prev = newNode;               //previous head's "prev" changes from nullptr to newNode
+            }
             head = newNode;                    //update list's head to new node
-            head->prev = nullptr;            //changes the head's previous back to nullptr
+            //head->prev = nullptr;            //changes the head's previous back to nullptr
         }
         else{                           
             Node<data_type>* prev = nullptr;
@@ -227,7 +229,6 @@ int main(){
     int* foundItem = list.GetItem(item2);
     if (foundItem){
         std::cout << "Found item: " << *foundItem << std::endl;
-        delete foundItem;
     } else{
         std::cout << "Item not found." << std::endl;
     }
