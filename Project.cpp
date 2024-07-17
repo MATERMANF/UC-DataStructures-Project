@@ -98,12 +98,7 @@ class LinkedList {
      * Returns a bool indicating if the list is empty
      */
     bool IsEmpty(){
-        if(head==nullptr){    //checks to see if head is valid
-            return true;    //if head is null: return that the list is empty (true)
-        }
-        else{
-            return false;
-        }
+        return size==0;
     }
     /**
      * Returns the size of the list
