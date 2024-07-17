@@ -40,6 +40,28 @@ class LinkedList {
      * Adds the given item to the list
      */
     void AddItem(data_type* item){
+        Node<data_type>* newNode = new Node<data_type>;    //creates new node
+        newNode->data = *item;                            //adds new item to new node's data
+        //    !!!!This line breaks compiler: trying without pointers?
+        //if (head==nullptr || *(newNode->data) < *(head->data)){    //if no head or new data less than current head:
+        if (head==nullptr || newNode->data < head->data){ //if no head or new data less than current head:
+            newNode->next = head;                //update new node's next to previous head
+            head->prev = newNode;               //previous head's "prev" changes from nullptr to newNode
+            head = newNode;                    //update list's head to new node
+            head->prev = nullptr;            //changes the head's previous back to nullptr
+        }
+        else{                           
+            Node<data_type>* prev = nullptr;
+            Node<data_type>* curr = head;
+            //while (curr && *(curr->data) < *(newNode->data)){    //!!! breaks compiler?
+            while (curr && curr->data < newNode->data){
+                prev = curr;
+                curr = curr->next;
+            }
+            newNode->next = curr;
+            prev->next = newNode;
+        }
+        size++;
     }
     /**
      * Searches the list for the given item. 
