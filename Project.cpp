@@ -54,16 +54,16 @@ class LinkedList {
             prev = curr;
             curr = curr->next;
         }
-        if (curr==nullptr) return nullptr;    //if item not found, return null pointer
-        if (prev==nullptr){
-            head = curr->next;
+        if (curr==nullptr) return nullptr;    //if item not found: return null pointer
+        if (prev==nullptr){        //if item found at beginning:
+            head = curr->next;        //update head to next item, since node is to be deleted later
         }
         else{
-            prev->next = curr->next;
+            prev->next = curr->next;    //update item's previous "next" to the current node's "next" for deletion
         }
         data_type* result = curr->data;
         delete curr;
-        count--;
+        size--;
         return result;
     }
     /**
