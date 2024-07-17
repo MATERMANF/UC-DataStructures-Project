@@ -41,20 +41,16 @@ class LinkedList {
     void AddItem(data_type* item){
         Node<data_type>* newNode = new Node<data_type>;    //creates new node
         newNode->data = *item;                            //adds new item to new node's data
-        //    !!!!This line breaks compiler: trying without pointers?
-        //if (head==nullptr || *(newNode->data) < *(head->data)){    //if no head or new data less than current head:
         if (head==nullptr || newNode->data < head->data){ //if no head or new data less than current head:
             newNode->next = head;                //update new node's next to previous head
             if(head != nullptr){
                 head->prev = newNode;               //previous head's "prev" changes from nullptr to newNode
             }
             head = newNode;                    //update list's head to new node
-            //head->prev = nullptr;            //changes the head's previous back to nullptr
         }
         else{                           
             Node<data_type>* prev = nullptr;
             Node<data_type>* curr = head;
-            //while (curr && *(curr->data) < *(newNode->data)){    //!!! breaks compiler?
             while (curr && curr->data < newNode->data){
                 prev = curr;
                 curr = curr->next;
@@ -255,7 +251,19 @@ void testMenu(){
         std::cout<<"option: "<<option;
         switch (option){
             case 0: //Add Item
-
+                std::cout<<"Enter first name: ";
+                std::cin>>FirstName;
+                std::cout<<"Enter last name: ";
+                std::cin>>LastName;
+                std::cout<<"Enter M number: ";
+                std::cin>>MNum;
+                std::cout<<"Enter birthday (DD/MM/YYYY): ";
+                std::cin>>Birthday;
+                std::cout<<"Enter GPA: ";
+                std::cin>>GPA;
+                Student* student = new Student(FirstName, FastName, MNum, GPA, Birthday);
+                list.AddItem(student);
+                std::cout << "Student added.\n";
                 break;
 
             case 1: //Get Item
