@@ -239,17 +239,55 @@ void testMenu(){
     bool running = true;
     while(running){
         std::cout<<"\n\n\nWelcome to the test program!\n\n";
-        std::cout<<"Please select an option:\n"
-        std::cout<<"[0] - Add Item to list\n"
-        std::cout<<"[1] - Get Item from list\n"
+        std::cout<<"Please select an option:\n";
+        std::cout<<"[0] - Add Item to list\n";
+        std::cout<<"[1] - Get Item from list\n";
+        std::cout<<"[2] - Check if item is in list\n";
+        std::cout<<"[3] - Check if list is empty\n";
+        std::cout<<"[4] - Check the size of the list\n";
+        std::cout<<"[5] - Get the next item in the list\n";
+        std::cout<<"[6] - Get item at specific index\n";
+        std::cout<<"[7] - Sets \"next item\" to be the first item\n";
+        std::cout<<"[8] - Exit\n";
 
+        int option;
         std::cin>>option;
+        std::cout<<"option: "<<option;
         switch (option){
-            case 0:
+            case 0: //Add Item
 
                 break;
 
-            case 1:
+            case 1: //Get Item
+
+                break;
+
+            case 2: //Check if item is in list
+
+
+                break;
+
+            case 3: //Check if list is empty
+
+
+                break;
+
+            case 4: //Check the size of the list
+
+
+                break;
+
+            case 5: //Get the next item in the list
+
+
+                break;
+
+            case 6: //Get item at specific index
+
+
+                break;
+
+            case 7: //Sets "next item" to be the first item. Maybe print it too?
 
                 break;
             default:
@@ -294,7 +332,7 @@ int main(){
     else{
         std::cout<<"Fail!";
     }
-
+    testMenu();
     return 0;
 
 }
