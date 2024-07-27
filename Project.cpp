@@ -168,6 +168,12 @@ class Student {
 
     public:
 
+    Student(){
+        std::cout<<"Error: no values given";
+        std::cerr<<"Error: no values given";
+        std::terminate();
+    }
+
     Student(std::string FirstName, std::string LastName, std::string MNum, float GPA, std::string Birthday){
         if(Birthday[5] != '/' || Birthday[2] != '/'){
             std::cout<<"Error: Birthday should be in the form DD/MM/YYYY.";
@@ -214,6 +220,10 @@ class Student {
         return std::stoi(MNumber.substr(1)) == std::stoi(other.MNumber.substr(1));;
     }
 
+    bool operator != (Student &other){
+        return std::stoi(MNumber.substr(1)) != std::stoi(other.MNumber.substr(1));;
+    }
+
     bool operator > (Student &other){
         return std::stoi(MNumber.substr(1)) > std::stoi(other.MNumber.substr(1));;
     }
@@ -232,6 +242,7 @@ int testFunct(){
 
 
 void testMenu(){
+    LinkedList<Student> list;
     bool running = true;
     while(running){
         std::cout<<"\n\n\nWelcome to the test program!\n\n";
@@ -249,9 +260,19 @@ void testMenu(){
         int option;
         std::cin>>option;
         std::cout<<"option: "<<option;
+
         switch (option){
             case 0: //Add Item
-                std::cout<<"Enter first name: ";
+                std::cout<<"Add Item\n";
+                std::string FirstName;  // Create variables for input
+                std::string LastName;
+                std::string MNum;
+                std::string Birthday;
+                float GPA;
+
+                Student* student;        // Create blank Student pointer
+
+                std::cout<<"Enter first name: ";        // Request inputs
                 std::cin>>FirstName;
                 std::cout<<"Enter last name: ";
                 std::cin>>LastName;
@@ -259,15 +280,33 @@ void testMenu(){
                 std::cin>>MNum;
                 std::cout<<"Enter birthday (DD/MM/YYYY): ";
                 std::cin>>Birthday;
-                std::cout<<"Enter GPA: ";
+                std::cout<<"Enter GPA, or -1 to skip: ";
                 std::cin>>GPA;
-                Student* student = new Student(FirstName, FastName, MNum, GPA, Birthday);
+
+                if(GPA == -1){                              // Add new student to list
+                    student = new Student(FirstName, LastName, MNum, Birthday);
+                }
+                else{
+                    student = new Student(FirstName, LastName, MNum, GPA, Birthday);
+                }
                 list.AddItem(student);
                 std::cout << "Student added.\n";
                 break;
 
             case 1: //Get Item
-
+                std::cout<<"Get Item\n";
+                std::string MNum;
+                std::cout<<"Enter M number: ";
+                std::cin>>MNum;
+                Student* temp_student = new Student("irrelevant","irrelevant",MNum,"00/00/0000");
+                Student* found_student = list.GetItem(temp_student);
+                if(found_student != nullptr){
+                    std::cout<<"Student:\n\tName: " << found_student->GetName()<<"\n\tMNumber: "<<found_student->GetMNumber()<<"\n\tGPA: "<<found_student->GetGPA()<<"\n\tBirthday: "<<found_student->GetBirthday()<<"\n\tAge: "<<found_student->GetAge()<<"\n";
+                    std::cout<<"Student found and successfully removed from the list.\n";
+                }
+                else{
+                    std::cout<<"Student not found.\n";
+                }
                 break;
 
             case 2: //Check if item is in list
