@@ -91,7 +91,7 @@ class LinkedList {
     bool IsInList(data_type* item){     // Same code as GetItem, just without removing the item
         Node<data_type>* curr = head;
         while (curr!=nullptr && curr->data != *item){    //checks to see if current is valid and is the item
-            std::cout<<"\nChecking: " << *item << " - " << curr->data;
+            //std::cout<<"\nChecking: " << *item << " - " << curr->data;
             curr = curr->next;
         }
         if (curr==nullptr) return false;    //if item not found: return null pointer
@@ -117,7 +117,7 @@ class LinkedList {
         if(position == nullptr){
             position = head;
         }
-        data_type* temp = position->data;
+        data_type* temp = &position->data;
         position = position->next;
         return temp;
     }
@@ -127,7 +127,7 @@ returns the item without removing it. If the location passed by the user is
 past the end of the list, this will throw an error or display an error
 message
      */
-    data_type* SeeAt(int pos){
+    data_type* SeeAt(int pos){z
         if (pos > size-1){
             std::cout<<"Error: Index out of range.";
             return nullptr;
@@ -137,13 +137,13 @@ message
             curr = curr->next;
             pos--;
         }
-        return curr->data;
+        return &curr->data;
     }
     /**
      * Resets the position that SeeNext uses
      */
     void Reset(){
-        position = 0;
+        position = head;
     }
     /**
      * Destructor for the linked list
@@ -243,7 +243,7 @@ void testMenu(){
     LinkedList<Student> list;
     bool running = true;
     while(running){
-        std::cout<<"\n\n\nWelcome to the test program!\n\n";
+        std::cout<<"\n\nWelcome to the test program!\n\n";
         std::cout<<"Please select an option:\n";
         std::cout<<"[0] - Add Item to list\n";
         std::cout<<"[1] - Get Item from list\n";
@@ -307,36 +307,73 @@ void testMenu(){
                 else{
                     std::cout<<"Student not found.\n";
                 }
+                delete found_student;
                 break;
             }
             case 2: //Check if item is in list
-
-
+            {
+                std::cout<<"Check if item is in list\n";
+                std::string MNum;
+                std::cout<<"Enter M number: ";
+                std::cin>>MNum;
+                if(list.IsInList(new Student("irrelevant","irrelevant",MNum,"00/00/0000"))){
+                    std::cout<<"Student found.\n";
+                }
+                else{
+                    std::cout<<"Student not found.\n";
+                }
                 break;
+            }
+
 
             case 3: //Check if list is empty
-
+            {
+                std::cout<<"Check if list is empty\n";
+                if(list.IsEmpty()){
+                    std::cout<<"List is empty.\n";
+                }
+                else{
+                    std::cout<<"List is not empty.\n";
+                }
 
                 break;
-
+            }
             case 4: //Check the size of the list
-
+            {
+                std::cout<<"Check the size of the list\n";
+                std::cout<<"Size: "<<list.Size()<<"\n";
 
                 break;
-
+            }
             case 5: //Get the next item in the list
-
-
+            {
+                std::cout<<"Get the next item in the list\n";
+                Student* temp_student = list.SeeNext();
+                std::cout<<"Next Student:\n\tName: " << temp_student->GetName()<<"\n\tMNumber: "<<temp_student->GetMNumber()<<"\n\tAge: "<<temp_student->GetAge()<<"\n";
                 break;
-
+            }
             case 6: //Get item at specific index
-
+            {
+                int index;
+                std::cout<<"Get Item at specific index\nIndex: ";
+                std::cin>>index;
+                Student* temp_student = list.SeeAt(index);
+                if(temp_student != nullptr){
+                    std::cout<<"Student:\n\tName: " << temp_student->GetName()<<"\n\tMNumber: "<<temp_student->GetMNumber()<<"\n\tAge: "<<temp_student->GetAge()<<"\n";
+                }
+                else{
+                    std::cout<<"Student not found.\n";
+                }
 
                 break;
-
+            }
             case 7: //Sets "next item" to be the first item. Maybe print it too?
-
+            {
+                std::cout<<"Sets \"next item\" to be the first item.\n";
+                list.Reset();
+                std::cout<<"Operation Successful.\n";
                 break;
+            }
             default:
                 running = false;
                 break;
