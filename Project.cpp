@@ -127,7 +127,7 @@ returns the item without removing it. If the location passed by the user is
 past the end of the list, this will throw an error or display an error
 message
      */
-    data_type* SeeAt(int pos){z
+    data_type* SeeAt(int pos){
         if (pos > size-1){
             std::cout<<"Error: Index out of range.";
             return nullptr;
