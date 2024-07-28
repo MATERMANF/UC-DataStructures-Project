@@ -81,7 +81,7 @@ class LinkedList {
         }
         data_type* result = &(curr->data);
         curr->next = nullptr;
-        delete curr;
+        //delete curr;
         size--;
         return result;
     }
@@ -168,10 +168,8 @@ class Student {
 
     public:
 
+    
     Student(){
-        std::cout<<"Error: no values given";
-        std::cerr<<"Error: no values given";
-        std::terminate();
     }
 
     Student(std::string FirstName, std::string LastName, std::string MNum, float GPA, std::string Birthday){
@@ -263,6 +261,7 @@ void testMenu(){
 
         switch (option){
             case 0: //Add Item
+            {
                 std::cout<<"Add Item\n";
                 std::string FirstName;  // Create variables for input
                 std::string LastName;
@@ -292,8 +291,9 @@ void testMenu(){
                 list.AddItem(student);
                 std::cout << "Student added.\n";
                 break;
-
+            }
             case 1: //Get Item
+            {
                 std::cout<<"Get Item\n";
                 std::string MNum;
                 std::cout<<"Enter M number: ";
@@ -301,14 +301,14 @@ void testMenu(){
                 Student* temp_student = new Student("irrelevant","irrelevant",MNum,"00/00/0000");
                 Student* found_student = list.GetItem(temp_student);
                 if(found_student != nullptr){
-                    std::cout<<"Student:\n\tName: " << found_student->GetName()<<"\n\tMNumber: "<<found_student->GetMNumber()<<"\n\tGPA: "<<found_student->GetGPA()<<"\n\tBirthday: "<<found_student->GetBirthday()<<"\n\tAge: "<<found_student->GetAge()<<"\n";
+                    std::cout<<"Student:\n\tName: " << found_student->GetName()<<"\n\tMNumber: "<<found_student->GetMNumber()<<"\n\tAge: "<<found_student->GetAge()<<"\n";
                     std::cout<<"Student found and successfully removed from the list.\n";
                 }
                 else{
                     std::cout<<"Student not found.\n";
                 }
                 break;
-
+            }
             case 2: //Check if item is in list
 
 
