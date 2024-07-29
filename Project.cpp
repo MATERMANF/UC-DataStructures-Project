@@ -392,31 +392,18 @@ void testMenu(){
                 break;
             }
             case 8: { //Displays list using ASCII art
-
             std::cout << "Displaying list:\n";
-
             list.DisplayList();
-
             break;
-
             }
-    
-            case 9: {
-    
+            case 9: { //Option to exit the program from list
                 running = false;
-    
                 std::cout << "Exiting the program.\n";
-    
                 break;
-    
             }
-    
             default: {
-    
                 std::cout << "Invalid option. Please try again.\n";
-    
                 break;
-    
             }
         }
     }
