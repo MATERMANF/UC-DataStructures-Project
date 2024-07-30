@@ -153,7 +153,7 @@ message
         while (curr != nullptr) {
             curr->data.display();
             if (curr->next != nullptr) {
-                std::cout << " -> ";
+                std::cout << "\n   |\n   V\n";
             }
             curr = curr->next;
         }
